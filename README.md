@@ -21,12 +21,13 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 **Pretrained weights**
 <br>
 
- Backbone | Train mAP | Test Map | Link |
+ Backbone      |    Train mAP   |    Test mAP   |      Link     |
 | :---         |     :---:      |     :---:     |          ---: |
 |    Vgg19bn   |     66.12%     |     44.01%    |    [Link]()   |
 |    Resnet18  |     68.39%     |     44.29%    |    [Link]()   |
 |    Resnet50  |     69.51%     |     49.94%    |    [Link]()   |
 |    Darknet   |       -        |       -       |       -       |
+<!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 
 **Python files:**
 <br>
