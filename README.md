@@ -17,4 +17,4 @@ In order to get started, the PASCAL VOC 2007 and 2012 data-set is requiered. You
 `train_yolov1.py` : performs the entire training and testing procedure, giving progress updates after each epoch for both training and test loss in addition to the mean average precision metric. 
 
 **Acknowledgement:**
-I would like to thank Aske Plaat, Micheal Lew, Wojtek Kowalczyk, Jonas Eilers, Josef Jaeger, Paul Jaeger, Daniel Klassen Zhao Yang and Paul Peters for their support, time and thoughts throughout my studies.
+I would like to thank Aske Plaat, Micheal Lew, Wojtek Kowalczyk, Jonas Eilers, Josef Jaeger, Paul Jaeger, Daniel Klassen, Zhao Yang and Paul Peters for their support, time and thoughts throughout my studies.
