@@ -5,7 +5,7 @@
 This repo contains a reimplementation of the original Yolo: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) paper by Joseph Redmon using PyTorch. 
 
 **Getting started:**
-In order to get started, the PASCAL VOC data-set is requiered. You can either manually download the data manually from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`.
+In order to get started, the PASCAL VOC 2007 and 2012 data-set is requiered. You can either manually download the data manually from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the 2012 data-set test data is only available on the PASCAL test server and therefore not publicly available for download. 
 
 **Training:**
 
