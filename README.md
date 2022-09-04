@@ -23,9 +23,9 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
  Backbone      |    Train mAP   |    Test mAP   |      FPS      |     Link     |
 | :---         |     :---:      |     :---:     |     :---:     |         ---: |
-|    Vgg19bn   |     66.12%     |     44.01%    |      > 200    |   [Link]()   |
-|    Resnet18  |     68.39%     |     44.29%    |      > 200    |   [Link]()   |
-|    Resnet50  |     69.51%     |     49.94%    |      > 90     |   [Link]()   |
+|    Vgg19bn   |     66.12%     |     44.01%    |      233      |   [Link]()   |
+|    Resnet18  |     68.39%     |     44.29%    |      212      |   [Link]()   |
+|    Resnet50  |     69.51%     |     49.94%    |       96      |   [Link]()   |
 |    Darknet   |       -        |       -       |       -       |      -       |
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 
