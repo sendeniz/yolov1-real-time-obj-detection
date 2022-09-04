@@ -4,7 +4,7 @@
 <br>
 This repo contains a reimplementation of the original Yolo: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) paper by Joseph Redmon using PyTorch. 
 <p align="center">
-  <img src="figs/yolov1_demo.gif" alt="animated" />
+  <img src="figs/yolov1_demo.gif" alt="animated" width="448" height="448"/>
   <figcaption>Fig.1 - Real-time inference using YoloV1.</figcaption>
 </p>
 
