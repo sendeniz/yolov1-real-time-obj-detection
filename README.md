@@ -42,4 +42,4 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 **Acknowledgement:**
 <br>
-I would like to thank Aske Plaat, Michael Lew, Wojtek Kowalczyk, Jonas Eilers, Jakob Walter, Jonas Ammeling, Josef Jaeger, Paul Jaeger, Daniel Klassen, Zhao Yang and Paul Peters for their support, time and thoughts throughout my studies.
+I would like to thank Aske Plaat, Michael Lew, Wojtek Kowalczyk, Jonas Eilers, Jakob Walter, Josef Jaeger, Paul Jaeger, Daniel Klassen, Zhao Yang and Paul Peters for their support, time and thoughts throughout my studies.
