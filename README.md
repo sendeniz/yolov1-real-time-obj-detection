@@ -3,10 +3,14 @@
 **General:**
 <br>
 This repo contains a reimplementation of the original Yolo: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) paper by Joseph Redmon using PyTorch. 
+<p align="center">
+  <img src="figs/yolov1_demo.gif" alt="animated" />
+  <figcaption>Fig.1 - Real-time inference using YoloV1.</figcaption>
+</p>
 
 **Getting started:**
 <br>
-In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is requiered. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
+In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
 
 **Training:**
 <br>
@@ -38,4 +42,4 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 **Acknowledgement:**
 <br>
-I would like to thank Aske Plaat, Micheal Lew, Wojtek Kowalczyk, Jonas Eilers, Josef Jaeger, Paul Jaeger, Daniel Klassen, Zhao Yang and Paul Peters for their support, time and thoughts throughout my studies.
+I would like to thank Aske Plaat, Michael Lew, Wojtek Kowalczyk, Jonas Eilers, Jakob Walter, Jonas Ammeling, Josef Jaeger, Paul Jaeger, Daniel Klassen, Zhao Yang and Paul Peters for their support, time and thoughts throughout my studies.
