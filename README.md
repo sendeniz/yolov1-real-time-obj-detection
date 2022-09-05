@@ -2,21 +2,55 @@
  
 **General:**
 <br>
-This repo contains a reimplementation of the original Yolo: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) paper by Joseph Redmon using PyTorch. 
+This repo contains a reimplementation of the original Yolo: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) paper by Joseph Redmon using PyTorch. A short demo of our detection system can be seen in Fig. 1. The full demonstration can be found [here](https://www.youtube.com/watch?v=Q30_ScFp8us). 
 <p align="center">
   <img src="figs/yolov1_demo.gif" alt="animated" />
-  <figcaption>Fig.1 - Real-time inference using YoloV1.</figcaption>
+  <figcaption>Fig.1 - Real-time inference using YoloV1. </figcaption>
 </p>
 
 **Getting started:**
 <br>
-In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
+In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary. Depending on what libraries you may already have, you may wish to `pip install -r requirements.txt` first. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
 
 **Training:**
 <br>
 To train the model simply call the `train_yolov1.py` from terminal. Select one of the supported pre-trained models to be initalised as a backbone for training by setting one of the following backbone tags to `True` and all others to `False`: 1) `use_vgg19bn_backbone`, 2) `use_resnet18_backbone`, 3) and `use_resnet50_backbone` and 4) `use_original_darknet_backbone`. Note that as there are no pretrained weights available for the darknet weights in pytorch, the original backbone is currently not supported. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose. 
 
-Loss and mean average precision (mAP) values are computed after every epoch and can be seen from the console. 
+**Results**
+<br>
+Loss and mean average precision (mAP) values are computed after every epoch and can be seen from the console. After training they can be plotted by running the calling `python fig.py`. The results for training and test loss in addition to mAP values can be seen in Fig.2 for Vgg19 with batch normalisation, in Fig.3 for Resnet18 and Fig.4 for Resnet50. 
+
+<br>
+A model comparison between test mAP and inference speeed can be seen in Fig.5 and Fig.6 respectively. See Table.1 for exact mAP, FPS values per model.
+
+<p align="center">
+  <img width="700" height="300" src=/figs/vgg19bn_loss_map.png?raw=true "Training Environment">
+	<figcaption>Fig.2 - Vgg19bn Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
+</p>
+
+
+<p align="center">
+  <img width="700" height="300" src=/figs/resnet18_loss_map.png?raw=true "Training Environment">
+	<figcaption>Fig.3 - Resnet18 Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
+</p>
+
+<p align="center">
+  <img width="700" height="300" src=/figs/resnet50_loss_map.png?raw=true "Training Environment">
+	<figcaption>Fig.4 - Resnet50 Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
+</p>
+
+
+<p align="center">
+  <img width="700" height="300" src=/figs/model_comparison_map.png?raw=true "Training Environment">
+	<figcaption>Fig.5 - Test mAP across different YoloV1 backbones.</figcaption>
+</p>
+
+
+<p align="center">
+  <img width="700" height="300" src=/figs/model_comparison_inference_speed.png?raw=true "Training Environment">
+	<figcaption>Fig.6 - Inference speed across different YoloV1 backbones.</figcaption>
+</p>
+
 
 **Real time object detection**
 <br>
