@@ -20,12 +20,12 @@ Depending on what libraries you may already have, you may wish to `pip install -
 
 **Training:**
 <br>
-To train the model simply call the `train_yolov1.py` from terminal. Select one of the supported pre-trained models to be initalised as a backbone for training by setting one of the following backbone tags to `True` and all others to `False`: 1) `use_vgg19bn_backbone`, 2) `use_resnet18_backbone`, 3) and `use_resnet50_backbone` and 4) `use_original_darknet_backbone`. Note that as there are no pretrained weights available for the darknet weights in pytorch, the original backbone is currently not supported. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose. 
+To train the model simply call the `train_yolov1.py` from terminal. Select one of the supported pre-trained models to be initalised as a backbone for training by setting one of the following backbone tags to `True` and all others to `False`: 1) `use_vgg19bn_backbone`, 2) `use_resnet18_backbone`, 3) and `use_resnet50_backbone` and 4) `use_original_darknet_backbone`. Note that as there are no pretrained weights available for the darknet weights in pytorch, the original backbone is currently not supported. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose and should only requiere some small adjustments.
 
 **Results**
 <br>
 Loss and mean average precision (mAP) values are computed after every epoch and can be seen from the console. After training they can be plotted by running the calling `python fig.py`. The results for training and test loss in addition to mAP values can be seen in Fig.2 for Vgg19 with batch normalisation, in Fig.3 for Resnet18 and Fig.4 for Resnet50. 
-
+adjustments.
 <br>
 A model comparison between test mAP and inference speeed can be seen in Fig.5 and Fig.6 respectively. See Table.1 for exact mAP, FPS values per model.
 
