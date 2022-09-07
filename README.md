@@ -10,7 +10,13 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
 
 **Getting started:**
 <br>
-In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary. Depending on what libraries you may already have, you may wish to `pip install -r requirements.txt` first. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
+In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary and run the following lines:
+```
+virtualenv -p python3 venv
+!source venv/bin/activate
+!pip install -e .
+```
+Depending on what libraries you may already have, you may wish to `pip install -r requirements.txt` first. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
 
 **Training:**
 <br>
