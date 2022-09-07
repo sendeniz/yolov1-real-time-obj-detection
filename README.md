@@ -1,4 +1,4 @@
-# Yolo: You Only Look Once Real Object Detection (V1)
+# Yolo: You Only Look Once Real-Time Object Detection (V1)
  
 **General:**
 <br>
