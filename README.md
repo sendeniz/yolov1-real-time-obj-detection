@@ -4,7 +4,7 @@
 <br>
 This repo contains a reimplementation of the original Yolo: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) paper by Joseph Redmon using PyTorch. A short demo of our detection system can be seen in Fig. 1. The full demonstration can be found [here](https://www.youtube.com/watch?v=Q30_ScFp8us). 
 <p align="center">
-  <img src="figs/yolov1_demo.gif" alt="animated" />
+  <img src="figures/yolov1_demo.gif" alt="animated" />
   <figcaption>Fig.1 - Real-time inference using YoloV1. </figcaption>
 </p>
 
@@ -30,30 +30,30 @@ adjustments.
 A model comparison between test mAP and inference speeed can be seen in Fig.5 and Fig.6 respectively. See Table.1 for exact mAP, FPS values per model.
 
 <p align="center">
-  <img width="700" height="300" src=/figs/vgg19bn_loss_map.png?raw=true "Training Environment">
+  <img width="700" height="300" src=/figures/vgg19bn_loss_map.png?raw=true "Training Environment">
 	<figcaption>Fig.2 - Vgg19bn Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
 </p>
 
 
 <p align="center">
-  <img width="700" height="300" src=/figs/resnet18_loss_map.png?raw=true "Training Environment">
+  <img width="700" height="300" src=/figures/resnet18_loss_map.png?raw=true "Training Environment">
 	<figcaption>Fig.3 - Resnet18 Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
 </p>
 
 <p align="center">
-  <img width="700" height="300" src=/figs/resnet50_loss_map.png?raw=true "Training Environment">
+  <img width="700" height="300" src=/figures/resnet50_loss_map.png?raw=true "Training Environment">
 	<figcaption>Fig.4 - Resnet50 Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
 </p>
 
 
 <p align="center">
-  <img width="700" height="300" src=/figs/model_comparison_map.png?raw=true "Training Environment">
+  <img width="700" height="300" src=/figures/model_comparison_map.png?raw=true "Training Environment">
 	<figcaption>Fig.5 - Test mAP across different YoloV1 backbones.</figcaption>
 </p>
 
 
 <p align="center">
-  <img width="700" height="300" src=/figs/model_comparison_inference_speed.png?raw=true "Training Environment">
+  <img width="700" height="300" src=/figures/model_comparison_inference_speed.png?raw=true "Training Environment">
 	<figcaption>Fig.6 - Inference speed across different YoloV1 backbones.</figcaption>
 </p>
 
