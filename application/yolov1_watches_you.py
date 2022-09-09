@@ -10,15 +10,15 @@ import numpy as np
 import time 
 import torch
 import torch.optim as optim
-from yolov1_utils import non_max_suppression, cellboxes_to_boxes, get_bboxes
+from utils.yolov1_utils import non_max_suppression, cellboxes_to_boxes, get_bboxes
 import torchvision.transforms as T
 import torchvision.transforms.functional as TF
-from yolov1net_darknet import YoloV1Net
-from yolov1net_vgg19bn import YoloV1_Vgg19bn
-from yolov1net_resnet18 import YoloV1_Resnet18
-from yolov1net_resnet50 import YoloV1_Resnet50
+from models.yolov1net_darknet import YoloV1Net
+from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
+from models.yolov1net_resnet18 import YoloV1_Resnet18
+from models.yolov1net_resnet50 import YoloV1_Resnet50
 import matplotlib.pyplot as plt
-from custom_transform import draw_bounding_box
+from utils.custom_transform import draw_bounding_box
 
 transform = T.Compose([T.ToTensor()])
 weight_decay = 0.0005
@@ -71,7 +71,7 @@ elif yolov1_vgg19bn_pretrained == True:
 elif yolov1_resnet18_pretrained == True:
     model = YoloV1_Resnet18(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
-    checkpoint = torch.load(path_cpt_file)
+    checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     model.eval()
@@ -80,7 +80,7 @@ elif yolov1_resnet18_pretrained == True:
 elif yolov1_resnet50_pretrained == True:
     model = YoloV1_Resnet50(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
-    checkpoint = torch.load(path_cpt_file)
+    checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     model.eval()
@@ -91,14 +91,11 @@ else:
 
 
 # video captioning
-
 cap = cv.VideoCapture(0)
 fps = 0
 fps_start = 0
 prev = 0 
-#video_rec = cv.VideoWriter('video/yolov1_watches_you.mp4', 
-#                         cv.VideoWriter_fourcc(*'mp4v'),
-#                         30, (448, 448))
+
 while(cap.isOpened()):
     
     ret, frame = cap.read()
@@ -126,12 +123,9 @@ while(cap.isOpened()):
     
     cv.imshow('Video', frame)
     
-    #video_rec.write(frame)
-
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
-#video_rec.release()
 cap.release()
 cv.destroyAllWindows()
 print("Webcam stream cancelled.")

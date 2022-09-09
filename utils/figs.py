@@ -1,18 +1,17 @@
 import cv2 as cv
 import numpy as np
-import time 
 import torch
 import torch.optim as optim
-from yolov1_utils import non_max_suppression, cellboxes_to_boxes, get_bboxes
+from utils.yolov1_utils import non_max_suppression, cellboxes_to_boxes, get_bboxes
 import torchvision.transforms as T
 import torchvision.transforms.functional as TF
-from yolov1net import YoloV1Net
-from yolov1net_vgg19bn import YoloV1_Vgg19bn
-from yolov1net_resnet18 import YoloV1_Resnet18
-from yolov1net_resnet50 import YoloV1_Resnet50
+from models.yolov1net_darknet import YoloV1Net
+from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
+from models.yolov1net_resnet18 import YoloV1_Resnet18
+from models.yolov1net_resnet50 import YoloV1_Resnet50
 import matplotlib.pyplot as plt
 from PIL import Image
-from custom_transform import scale_translate, draw_bounding_box, scale_translate_bounding_box
+from utils.custom_transform import scale_translate, draw_bounding_box, scale_translate_bounding_box
 import os
 import pandas as pd
 from numpy import genfromtxt
@@ -98,7 +97,7 @@ img = Image.open(img_dir+img_path)
 transformed_img, transform_vals = scale_translate(img)
 transformed_img = np.array(transformed_img)
 transformed_img = cv.resize(transformed_img, (448, 448))
-cv.imwrite('figs/train_img.jpg', transformed_img)
+cv.imwrite('figures/train_img.jpg', transformed_img)
 
 
 boxes = []
@@ -115,7 +114,7 @@ with open(label_dir+label_path) as f:
 
 boxes = scale_translate_bounding_box(boxes, transform_vals)
 train_img_bboxes = draw_bounding_box(transformed_img, boxes)
-cv.imwrite('figs/train_img_bboxes.jpg', train_img_bboxes)
+cv.imwrite('figures/train_img_bboxes.jpg', train_img_bboxes)
 
 
 # Plot test data with predicted bounding box
@@ -125,7 +124,7 @@ img_path = random_row.iloc[0, 0]
 test_img = Image.open(img_dir+img_path)
 test_img = np.array(test_img)
 test_img = cv.resize(test_img, (448, 448))
-cv.imwrite('figs/test_img.jpg', test_img)
+cv.imwrite('figures/test_img.jpg', test_img)
 
 test_img = transform(test_img)
 test_img = test_img.unsqueeze(0).to(device)
@@ -135,7 +134,7 @@ test_img = test_img.squeeze(0)
 test_img = test_img.permute(1, 2, 0).cpu().numpy() * 255
 bboxes = non_max_suppression(get_bboxes[0], iou_threshold=0.5, threshold=0.4, boxformat="midpoints")
 test_img_bboxes = draw_bounding_box(test_img, bboxes, test = True)
-cv.imwrite('figs/test_img_bboxes.jpg', test_img_bboxes)
+cv.imwrite('figures/test_img_bboxes.jpg', test_img_bboxes)
 
 
 def strip_square_brackets(pathtotxt):    
@@ -166,7 +165,6 @@ strip_square_brackets("results/resnet50_adj_lr_test_mAP.txt")
 strip_square_brackets("results/vgg19bn_adj_lr_inference_speed.txt")
 strip_square_brackets("results/resnet18_adj_lr_inference_speed.txt")
 strip_square_brackets("results/resnet50_adj_lr_inference_speed.txt")
-
 
 # Load values from txt file
 train_vgg19_loss = genfromtxt("results/vgg19bn_adj_lr_train_loss.txt", delimiter=',')
@@ -210,12 +208,12 @@ plt.legend(['Train loss', 'Test loss'],
 plt.subplot(1, 2, 2)
 plt.plot(train_vgg19_map, linewidth = 1.5)
 plt.plot(test_vgg19_map, linewidth = 1.5)
-plt.title('Vgg19bn: Mean avergae precision per epoch', fontsize = 16)
+plt.title('Vgg19bn: Mean average precision per epoch', fontsize = 16)
 plt.xlabel('Number of epochs', fontsize = 16)
 plt.ylabel('mAP value ', fontsize = 16)
 plt.legend(['Train mAP', 'Test mAP'], prop={'size': 14},           
             frameon=False)
-plt.savefig('figs/vgg19bn_loss_map.png')
+plt.savefig('figures/vgg19bn_loss_map.png')
 
 
 # Plot Resnet18 loss
@@ -234,12 +232,12 @@ plt.legend(['Train loss', 'Test loss'],
 plt.subplot(1, 2, 2)
 plt.plot(train_resnet18_map, linewidth = 1.5)
 plt.plot(test_resnet18_map, linewidth = 1.5)
-plt.title('ResNet18: Mean avergae precision per epoch', fontsize = 16)
+plt.title('ResNet18: Mean average precision per epoch', fontsize = 16)
 plt.xlabel('Number of epochs', fontsize = 16)
 plt.ylabel('mAP value ', fontsize = 16)
 plt.legend(['Train mAP', 'Test mAP'], prop={'size': 14},           
             frameon=False)
-plt.savefig('figs/resnet18_loss_map.png')
+plt.savefig('figures/resnet18_loss_map.png')
 
 # Plot Resnet50 loss
 plt.figure(figsize=(13,5))
@@ -257,12 +255,12 @@ plt.legend(['Train loss', 'Test loss'],
 plt.subplot(1, 2, 2)
 plt.plot(train_resnet50_map, linewidth = 1.5)
 plt.plot(test_resnet50_map, linewidth = 1.5)
-plt.title('ResNet50: Mean avergae precision per epoch', fontsize = 16)
+plt.title('ResNet50: Mean average precision per epoch', fontsize = 16)
 plt.xlabel('Number of epochs', fontsize = 16)
 plt.ylabel('mAP value ', fontsize = 16)
 plt.legend(['Train mAP', 'Test mAP'], prop={'size': 14},           
             frameon=False)
-plt.savefig('figs/resnet50_loss_map.png')
+plt.savefig('figures/resnet50_loss_map.png')
 
 
 # Plot train map across models
@@ -288,7 +286,7 @@ plt.xlabel('Number of epochs', fontsize = 16)
 plt.ylabel('mAP value ', fontsize = 16)
 plt.legend(['Vgg19bn', 'Resnet18', 'Resnet50'], prop={'size': 14},           
             frameon=False)
-plt.savefig('figs/models_comparison_map.png')
+plt.savefig('figures/model_comparison_map.png')
 
 # Plot inference speed per image/frame
 plt.figure(figsize=(13,5))
@@ -301,4 +299,4 @@ plt.ylabel('Time in seconds', fontsize = 16)
 plt.legend(['Vgg19bn', 'Resnet18', 'Resnet50'],
            prop={'size': 14},           
             frameon=False)
-plt.savefig('figs/models_comparison_inference_speed.png')
+plt.savefig('figures/model_comparison_inference_speed.png')

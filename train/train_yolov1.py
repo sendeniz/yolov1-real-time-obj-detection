@@ -9,16 +9,16 @@ import torch
 import torchvision.transforms as T
 import torch.optim as optim
 from torch.utils.data import DataLoader
-from yolov1net import YoloV1Net
-from yolov1_utils import mean_average_precision as mAP
-from yolov1_utils import get_bboxes
-from data import VOCData
-from yolov1_loss import YoloV1Loss
+
+from utils.yolov1_utils import mean_average_precision as mAP
+from utils.yolov1_utils import get_bboxes
+from utils.dataset import VOCData
+from loss.yolov1_loss import YoloV1Loss
 from torch.optim import lr_scheduler
-from yolov1net import YoloV1Net
-from yolov1net_vgg19bn import YoloV1_Vgg19bn
-from yolov1net_resnet18 import YoloV1_Resnet18
-from yolov1net_resnet50 import YoloV1_Resnet50
+from models.yolov1net_darknet import YoloV1Net
+from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
+from models.yolov1net_resnet18 import YoloV1_Resnet18
+from models.yolov1net_resnet50 import YoloV1_Resnet50
 import cv2 as cv
 import numpy as np 
 from numpy import genfromtxt
@@ -27,7 +27,7 @@ from numpy import genfromtxt
 device = "cuda" if torch.cuda.is_available() else "cpu"
 batch_size = 4
 weight_decay = 0.0005
-epochs = 135
+epochs = 140
 nworkers = 2
 pin_memory = True
 
@@ -84,7 +84,13 @@ test_transform = Compose([T.Resize((448, 448)),
             T.ToTensor()])
 
 def train (train_loader, model, optimizer, loss_f):
-    # batch accumulation parameter
+    """
+    Input: train loader (torch loader), model (torch model), optimizer (torch optimizer)
+          loss function (torch custom yolov1 loss).
+    Output: loss (torch float).
+    """
+    # Gradient accumulation parameter: perform gradient accumulation over 16
+    # batches
     accum_iter = 16
     model.train()
 
@@ -96,10 +102,13 @@ def train (train_loader, model, optimizer, loss_f):
             out = model(x)
             del x
             loss_val = loss_f(out, y)
-            loss_val = loss_val # / accum_iter
+            # Maybe we need to divide loss by accum_iter. I however doubt this
+            # since loss is computed within each batch, so this correction is
+            # not needed. 
+            loss_val = loss_val 
             del y
             del out
-            #optimizer.zero_grad()
+            
             loss_val.backward()
             
             if ((batch_idx + 1) % accum_iter == 0) or (batch_idx + 1 == len(train_loader)):
@@ -109,6 +118,11 @@ def train (train_loader, model, optimizer, loss_f):
     return (float(loss_val.item()))
     
 def test (test_loader, model, loss_f):
+    """
+    Input: test loader (torch loader), model (torch model), loss function 
+          (torch custom yolov1 loss).
+    Output: test loss (torch float).
+    """
     model.eval()
     with torch.no_grad():
         for batch_idx, (x, y) in enumerate(test_loader):

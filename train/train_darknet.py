@@ -11,8 +11,8 @@ import torchvision.transforms as T
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
-from darknet import DarkNet
-from darknet_utils import top1accuracy, top5accuracy
+from models.darknet import DarkNet
+from utils.darknet_utils import top1accuracy, top5accuracy
 from numpy import genfromtxt
 import math
 

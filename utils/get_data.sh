@@ -12,20 +12,17 @@ tar xf VOCtest_06-Nov-2007.tar
 rm VOCtest_06-Nov-2007.tar
 
 wget https://pjreddie.com/media/files/voc_label.py
-python3 voc_label.py
+python3 utils/voc_label.py
 
 cat 2007_train.txt 2007_val.txt 2012_*.txt > train.txt
 cp 2007_test.txt test.txt
 mkdir old_txt_files
 mv 2007* 2012* old_txt_files/
 
+
 mkdir data
 mkdir data/images
 mkdir data/labels
-
-mkdir figs
-mkdir cpts
-mkdir results
 
 mv VOCdevkit/VOC2007/JPEGImages/*.jpg data/images/                                      
 mv VOCdevkit/VOC2012/JPEGImages/*.jpg data/images/                                      

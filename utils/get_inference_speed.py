@@ -1,34 +1,27 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Aug 21 23:14:10 2022
-
-@author: sen
-"""
-import cv2 as cv
 import numpy as np
 import time 
 import torch
 import torch.optim as optim
-from yolov1_utils import non_max_suppression, cellboxes_to_boxes, get_bboxes
+from models.yolov1net_darknet import YoloV1Net
+from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
+from models.yolov1net_resnet18 import YoloV1_Resnet18
+from models.yolov1net_resnet50 import YoloV1_Resnet50
 import torchvision.transforms as T
-import torchvision.transforms.functional as TF
-from yolov1net import YoloV1Net
-from yolov1net_vgg19bn import YoloV1_Vgg19bn
-from yolov1net_resnet18 import YoloV1_Resnet18
-from yolov1net_resnet50 import YoloV1_Resnet50
-import matplotlib.pyplot as plt
-from custom_transform import draw_bounding_box
+from PIL import Image
+import pandas as pd
+import cv2 as cv
 
+img_dir = 'data/images/'
+label_dir = 'data/labels/'
+results_dir = 'results/'
 transform = T.Compose([T.ToTensor()])
 weight_decay = 0.0005
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 yolov1_darknet_pretrained = False
 yolov1_vgg19bn_pretrained = False
-yolov1_resnet18_pretrained = True
-yolov1_resnet50_pretrained = False
-
+yolov1_resnet18_pretrained = False
+yolov1_resnet50_pretrained = True
 
 model_names = ['vgg19bn_adj_lr_',
                 'resnet18_adj_lr_',
@@ -48,7 +41,7 @@ elif yolov1_resnet50_pretrained == True:
     path_cpt_file = f'cpts/{current_model}yolov1.cpt'
 
 
-# init model
+# # init model
 if yolov1_darknet_pretrained == True:
     model = YoloV1Net(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
@@ -72,7 +65,7 @@ elif yolov1_vgg19bn_pretrained == True:
 elif yolov1_resnet18_pretrained == True:
     model = YoloV1_Resnet18(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
-    checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
+    checkpoint = torch.load(path_cpt_file)
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     model.eval()
@@ -91,48 +84,35 @@ else:
     print("No pretrained yolov1 model was specified. Please check the boolean flags and set the flag for supported pretrained models to True.")
 
 
-# video captioning
-video_path = 'video/yolo_video_1.mp4'
-cap = cv.VideoCapture(video_path)
+csvfile = pd.read_csv('data/test.csv', header=None)
 
-fps = 0
-fps_start = 0
-prev = 0 
-video_rec = cv.VideoWriter('video/yolov1_watches_youtube_1.avi', 
-                         cv.VideoWriter_fourcc(*'MJPG'),
-                         30, (448, 448))
-while(cap.isOpened()):
-    
-    ret, frame = cap.read()
-    if not ret:
-        break
-    frame = np.array(frame)
-    frame = cv.resize(frame, (448, 448))
-    fps_end = time.time() 
-    time_diff = fps_end - fps_start
-    fps = 1 / (time_diff - prev)
-    prev = fps_end
-    height, width = frame.shape[:2]
-    #fps = cap.get(cv.CAP_PROP_POS_FRAMES)
-    fps_txt = "FPS: {}".format(fps)
-    frame = cv.putText(frame, fps_txt, (width - 80, 40), cv.FONT_HERSHEY_TRIPLEX, 0.5, (255, 255, 255), 1)
+lst = []
+prev = 0
+for i in range(300):
+    random_row = (csvfile.sample())
+    img_path = random_row.iloc[0, 0]
+    img_path = random_row.iloc[0, 0]
+    test_img = Image.open(img_dir+img_path)
+    test_img = np.array(test_img)
+    test_img = cv.resize(test_img, (448, 448))
+    test_img = transform(test_img)
+    test_img = test_img.unsqueeze(0).to(device)
+    start = time.time()
+    model(test_img)
+    end = time.time()
+    elapsed = (end-start)
+    lst.append(elapsed + prev)
+    prev = lst[-1]
 
-    frame = transform(frame)
-    frame = frame.unsqueeze(0)
-    preds = model(frame)
-    
-    get_bboxes = cellboxes_to_boxes(preds)
-    frame = frame.squeeze(0)
-    frame = frame.permute(1, 2, 0).numpy() * 255
-    bboxes = non_max_suppression(get_bboxes[0], iou_threshold = 0.5, threshold = 0.4, boxformat = "midpoints")
-    frame = draw_bounding_box(frame, bboxes, test = True)
-    
-    cv.imshow('Video', frame)
-    video_rec.write(frame)
-
-    if cv.waitKey(1) & 0xFF == ord('q'):
-        break
-
-video_rec.release()
-cap.release()
-cv.destroyAllWindows()
+if yolov1_darknet_pretrained == True:
+    with open(f'results/{current_model}inference_speed.txt','w') as values:
+        values.write(str(lst))
+elif yolov1_vgg19bn_pretrained == True:
+    with open(f'results/{current_model}inference_speed.txt','w') as values:
+        values.write(str(lst))
+elif yolov1_resnet18_pretrained == True:
+    with open(f'results/{current_model}inference_speed.txt','w') as values:
+        values.write(str(lst))
+elif yolov1_resnet50_pretrained == True:
+    with open(f'results/{current_model}inference_speed.txt','w') as values:
+        values.write(str(lst))

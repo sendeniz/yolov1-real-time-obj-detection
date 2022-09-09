@@ -9,7 +9,7 @@ import torch
 import os
 import pandas as pd
 from PIL import Image
-from custom_transform import scale_translate, scale_translate_bounding_box
+from utils.custom_transform import scale_translate, scale_translate_bounding_box
 
 
 class VOCData(torch.utils.data.Dataset):
