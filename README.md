@@ -60,7 +60,7 @@ A model comparison between test mAP and inference speeed can be seen in Fig.5 an
 
 **Real time object detection**
 <br>
-In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the `cpts` folder. If you want to do real time inference on a video, move the video file into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the vdeo in `yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton.
+In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the `cpts` folder. If you want to do real time inference on a video, move the video file into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the video in `application/yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `application/yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton.
 
 **Pretrained weights**
 <br>
@@ -74,11 +74,25 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 
 **Python files:**
+
 <br>
 `yolov1net_backbonename.py` : There are 3 pretrained backbones supported: Vgg19 with batch norm `yolov1net_vgg19bn.py`, Resnet18 `yolov1net_resnet18.py`
- and Resnet50 `yolov1net_resnet50.py`. While the original darknet backbone is also supported `yolov1net_darknet.py`, there are no pretrained PyTorch weights available for this backbone. Methods that convert the original darknet weights from [Joseph Redmon's website](https://pjreddie.com/darknet/imagenet/) do not support conversion of this particular backbone. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose. 
+ and Resnet50 `yolov1net_resnet50.py`. While the original darknet backbone is also supported `yolov1net_darknet.py`, there are no pretrained PyTorch weights available for this backbone. Methods that convert the original darknet weights from [Joseph Redmon's website](https://pjreddie.com/darknet/imagenet/) do not support conversion of this particular backbone. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose and should only requiere small adjustments. 
  
-`train_yolov1.py` : performs the entire training and testing procedure, giving progress updates after each epoch for both training and test loss in addition to the mean average precision metric. 
+`train_yolov1.py` : performs training and testing procedure, giving progress updates after each epoch for both training and test loss in addition to the mean average precision metric. 
+
+`yolov1_loss.py` : defines the yolov1 loss as a custom PyTorch nn.module.
+
+`custom_transform.py` : defines the dataaugmentations applied to yolov1 as per the original paper by Joseph Redmon.
+
+`utils.py` : defines a series of utility functions, such as computation for the intersection over unions, mean average precision, converting bouding box coordinates relative to the cellboxes and from cellboxes the image.
+
+`get_data.sh` : downloads the data and assigns them into the approriate folder structure for training and testing and converts the `train.txt` and `text.txt to a csv using `generate_csv.py`
+
+`yolov1_watches_you.py` : performs object detection on webcam stream. 
+
+`yolov1_watches_youtube.py` : performs object detection on a specified video path. 
+
 
 **Acknowledgement:**
 <br>
