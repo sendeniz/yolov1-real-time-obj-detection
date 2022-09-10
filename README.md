@@ -87,8 +87,10 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 `utils.py` : defines a series of utility functions, such as computation for the intersection over unions, mean average precision, converting bouding box coordinates relative to the cellboxes and from cellboxes the image.
 
-`get_data.sh` : downloads the data and assigns them into the approriate folder structure for training and testing and converts the `train.txt` and `text.txt to a csv using `generate_csv.py`
+`get_data.sh` : downloads the data and assigns them into the approriate folder structure for training and testing and converts the `train.txt` and `text.txt` to a csv using `generate_csv.py`
 
+`get_data.sh` : same as above but supported for unix macos systems.
+ 
 `yolov1_watches_you.py` : performs object detection on webcam stream. 
 
 `yolov1_watches_youtube.py` : performs object detection on a specified video path. 
