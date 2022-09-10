@@ -17,7 +17,6 @@ from models.yolov1net_darknet import YoloV1Net
 from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
 from models.yolov1net_resnet18 import YoloV1_Resnet18
 from models.yolov1net_resnet50 import YoloV1_Resnet50
-import matplotlib.pyplot as plt
 from utils.custom_transform import draw_bounding_box
 
 transform = T.Compose([T.ToTensor()])
@@ -71,7 +70,7 @@ elif yolov1_vgg19bn_pretrained == True:
 elif yolov1_resnet18_pretrained == True:
     model = YoloV1_Resnet18(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
-    checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
+    checkpoint = torch.load(path_cpt_file)
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     model.eval()
@@ -80,7 +79,7 @@ elif yolov1_resnet18_pretrained == True:
 elif yolov1_resnet50_pretrained == True:
     model = YoloV1_Resnet50(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
-    checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
+    checkpoint = torch.load(path_cpt_file)
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     model.eval()

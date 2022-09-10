@@ -11,7 +11,8 @@ wget http://host.robots.ox.ac.uk/pascal/VOC/voc2007/VOCtest_06-Nov-2007.tar
 tar xf VOCtest_06-Nov-2007.tar
 rm VOCtest_06-Nov-2007.tar
 
-wget https://pjreddie.com/media/files/voc_label.py
+#wget https://pjreddie.com/media/files/voc_label.py
+#mv voc_label.py utils/ 
 python3 utils/voc_label.py
 
 cat 2007_train.txt 2007_val.txt 2012_*.txt > train.txt
@@ -23,10 +24,12 @@ mkdir data
 mkdir data/images
 mkdir data/labels
 
-mv VOCdevkit/VOC2007/JPEGImages/*.jpg data/images/                                      
-mv VOCdevkit/VOC2012/JPEGImages/*.jpg data/images/                                      
-mv VOCdevkit/VOC2007/labels/*.txt data/labels/                                          
-mv VOCdevkit/VOC2012/labels/*.txt data/labels/
+for f in VOCdevkit/VOC2007/JPEGImages/*.jpg; do mv "$f" data/images/; done
+for f in VOCdevkit/VOC2012/JPEGImages/*.jpg; do mv "$f" data/images/; done
+
+for f in VOCdevkit/VOC2007/labels/*.txt; do mv "$f" data/labels/; done
+for f in  VOCdevkit/VOC2012/labels/*.txt; do mv "$f" data/labels/; done
+
 
 rm -rf VOCdevkit/
 python3 utils/generate_csv.py
