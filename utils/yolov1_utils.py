@@ -58,29 +58,22 @@ def intersec_over_union(bboxes_preds, bboxes_targets, boxformat = "midpoints"):
     return iou
 
 
-# first is to get all bounding box prediction on our test set
-# we want to evaluate whether a predicted bounding box is a TP or FP
-# imagine a predicted box with an iou with any target box greater than 0.5
-# meaning that the bounding box is a false positive, it detects the leash of 
-# the dog. Imagne other bounding box with 0.7 confidence and shares an iou with 
-# the target bounding box that is greater than 0.5 we say it is a true positive. 
-# second we want to create a table of TP of FP based on confidence score and
-# then sort it in descending order by cofidence score
-# precision is true positives divided by true positives + false positives
-# recall true positives divided by the true positives + false negatives, so 
-# it is division by the total number of total bounding boxes 
-
-# pred_boxes, true_boxes, iou_threshold = 0.5, 
 def mean_avg_precision(bboxes_preds, bboxes_targets, iou_threshold = 0.5, 
                         boxformat ="midpoints", num_classes = 20):
     """
-    Calculates mean average precision.
+    Calculates mean average precision, by collecting predicted bounding boxes on the
+    test set and then evaluate whether predictied boxes are TP or FP. Prediction with an 
+    IOU larger than 0.5 are TP and predictions larger than 0.5 are FP. Since there can be
+    more than a single bounding box for an object, TP and FP are ordered by their confidence
+    score or class probability in descending order, where the precision is computed as
+    precision = (TP / (TP + FP)) and recall is computed as recall = (TP /(TP + FN)).
+
     Input: Predicted bounding boxes (list): [training index, class prediction C,
-                                              probability score p, x1, y1, x2, y2]
+                                              probability score p, x1, y1, x2, y2], ,[...]
             Target/True bounding boxes:
     Output: Mean average precision (float)
     """
-    # pred boxes is a list : [train_index, class pred, prob_score, x1,y1,x2,y2],[...] 
+
     avg_precision = []
     
     # iterate over classes category
@@ -148,8 +141,7 @@ def mean_avg_precision(bboxes_preds, bboxes_targets, iou_threshold = 0.5,
                 
                 
             if best_iou > iou_threshold:
-                # check whether we already examined if the bounding box has already
-                # been covered
+                # check if the bounding box has already been covered or examined before
                 if amount_bboxes[detection[0]][best_gt_idx] == 0:
                     TP[detection_idx] = 1
                     # set it to 1 since we already covered the bounding box
@@ -262,7 +254,7 @@ def cellboxes_to_boxes(out, S=7):
 
 def non_max_suppression(bboxes, iou_threshold, threshold, boxformat="corners"):
     """
-    Does Non Max Suppression given bboxes
+    Does Non Max Suppression given bboxes.
     Parameters:
         bboxes (list): list of lists containing all bboxes with each bboxes
         specified as [class_pred, prob_score, x1, y1, x2, y2]
