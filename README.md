@@ -13,10 +13,10 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
 In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary and run the following lines:
 ```
 virtualenv -p python3 venv
-!source venv/bin/activate
-!pip install -e .
+source venv/bin/activate
+pip install -e .
 ```
-Depending on what libraries you may already have, you may wish to `pip install -r requirements.txt`. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `utils/get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
+Depending on what libraries you may already have, you may wish to `pip install -r requirements.txt`. To train from scratch, the PASCAL VOC 2007 and 2012 data-set is required. You can either manually download the data from the [PASCAL VOC homepage](http://host.robots.ox.ac.uk/pascal/VOC/) or simply call the following shell file: `utils/get_data.sh`, which will automatically download and sort the data into the approriate folders and format for training. If you are on mac use the `utils/get_data_macos.sh` file. You may need to ensure that the shell file is executable by calling `chmod +x get_data.sh` and then executing it `./get_data.sh`. Note that the for the PASCAL VOC 2012 data-set, test data is only available on the PASCAL test server and therefore not publicly available for download. 
 
 **Training:**
 <br>
@@ -74,8 +74,8 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 
 **Python files:**
-
 <br>
+
 `yolov1net_backbonename.py` : There are 3 pretrained backbones supported: Vgg19 with batch norm `yolov1net_vgg19bn.py`, Resnet18 `yolov1net_resnet18.py`
  and Resnet50 `yolov1net_resnet50.py`. While the original darknet backbone is also supported `yolov1net_darknet.py`, there are no pretrained PyTorch weights available for this backbone. Methods that convert the original darknet weights from [Joseph Redmon's website](https://pjreddie.com/darknet/imagenet/) do not support conversion of this particular backbone. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose and should only requiere small adjustments. 
  
@@ -89,7 +89,7 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 `get_data.sh` : downloads the data and assigns them into the approriate folder structure for training and testing and converts the `train.txt` and `text.txt` to a csv using `generate_csv.py`
 
-`get_data.sh` : same as above but supported for unix macos systems.
+`get_data_macos.sh` : same as above but supported for unix macos systems.
  
 `yolov1_watches_you.py` : performs object detection on webcam stream. 
 
