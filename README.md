@@ -74,7 +74,7 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1GDj3jLBWbruhSQ7Gx01cLdkJFYW7kDwj?usp=sharing).
 
-**Dictionary Structre**
+**Example Dictionary Structre**
 ```
 .
 ├── application                		# Real time inference tools
@@ -82,6 +82,9 @@ Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1
     └── yolov1_watches_you.py  		# YoloV1 inference on webcam
     └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in `video/`
 ├── cpts				# Weights as checkpoint .cpt files
+    └── vgg19bn_adj_lr_yolov1.cpt	# Pretrained YoloV1 utilizing Vgg19 backbone
+    └── resnet18_adj_lr_yolov1.cpt  	# Pretrained YoloV1 utilizing Resnet18 backbone	
+    └── resnet50_adj_lr_yolov1.cpt	# Pretrained YoloV1 utilizing Resnet50 backbone	
 ├── figures                    		# Figures and graphs
     └── ....
 ├── loss                       		# Custom PyTorch loss
@@ -93,7 +96,7 @@ Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1
     └── yolov1net_darknet.py		# Original YoloV1 backbone (not supported: no backbone weights available)
     └── yolov1net_resnet18.py		# Resnet18 pre-trained backbone
     └── yolov1net_resnet50.py		# Resnet50 pre-trained backbone
-    └── yolov1net_vgg18bn.py		# Vgg18 with batchnormalization pre-trained backbone
+    └── yolov1net_vgg19bn.py		# Vgg19 with batchnormalization pre-trained backbone
 ├── results                    		# Result textfiles
     └── ....
 ├── train                      		# Training files
