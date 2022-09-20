@@ -15,8 +15,8 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
 ├── application                		# Real time inference tools
     └── __init__.py 
     └── yolov1_watches_you.py  		# YoloV1 inference on webcam
-    └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in folder `video`
-├── cpts				# Weights as checkpoints .cpt files
+    └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in `video/`
+├── cpts				# Weights as checkpoint .cpt files
 ├── figures                    		# Figures and graphs
     └── ....
 ├── loss                       		# Custom PyTorch loss
@@ -26,9 +26,9 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
     └── __init__.py  		
     └── darknet.py
     └── yolov1net_darknet.py		# Original YoloV1 backbone (not supported: no backbone weights available)
-    └── yolov1net_resnet18.py
-    └── yolov1net_resnet50.py
-    └── yolov1net_vgg18bn.py
+    └── yolov1net_resnet18.py		# Resnet18 pre-trained backbone
+    └── yolov1net_resnet50.py		# Resnet50 pre-trained backbone
+    └── yolov1net_vgg18bn.py		# Vgg18 with batchnormalization pre-trained backbone
 ├── results                    		# Result textfiles
     └── ....
 ├── train                      		# Training files
@@ -37,23 +37,23 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
     └── train_yolov1.py 
 ├── utils                      		# Tools and utilities
     └── __init__.py
-    └── custon_transform.py
+    └── custom_transform.py		# Custom image augmentation/transformations
     └── darknet_utils.py		
     └── dataset.py
-    └── figs.py.py
-    └── generate_csv.py
-    └── get_data.sh
+    └── figs.py.			# Create figures
+    └── generate_csv.py			# Create training and testing csv files
+    └── get_data.sh			# Fetch data and assign into appropriate folder structure
     └── get_data_macos.sh		
-    └── get_inference_speed.py
-    └── iou_map_tester.py
-    └── voc_label.py
-    └── yolov1_utils.py
-├── video                      		# Video file to run real time inference on and store it
-    └── youtube_video.mp4		# Video file from youtube as an .mp4 
-    └── yolov1_watches_youtube.mp4      # Result of yolo watching the youtube_video.mp4 file
+    └── get_inference_speed.py		# Get inference speed
+    └── iou_map_tester.py		# mAP tester
+    └── voc_label.py			
+    └── yolov1_utils.py			
+├── video                      		
+    └── youtube_video.mp4		# .mp4 video from youtube
+    └── yolov1_watches_youtube.mp4      # Result of `yolov1_watches_youtube.py`
 ├── requierments.txt           		# Python libraries
-├── setup.py                   		# Makes repo into a Python package
-├── terminal.ipynb             		# If you want to run this from google collab
+├── setup.py                   		
+├── terminal.ipynb             		# If you want to run experiments on google collab
 ├── LICENSE
 └── README.md
 ```
