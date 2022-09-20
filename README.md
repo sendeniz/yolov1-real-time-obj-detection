@@ -8,6 +8,55 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
   <figcaption>Fig.1 - Real-time inference using YoloV1. </figcaption>
 </p>
 
+
+**Dictionary Structre**
+```
+.
+├── application                		# Real time inference tools
+    └── __init__.py 
+    └── yolov1_watches_you.py  		# YoloV1 inference on webcam
+    └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in folder `video`
+├── figures                    		# Figures and graphs
+    └── ....
+├── loss                       		# Custom PyTorch loss
+    └── __init__.py  		
+    └── yolov1_loss.py
+├── models                     		# Pytorch models
+    └── __init__.py  		
+    └── darknet.py
+    └── yolov1net_darknet.py		# Original YoloV1 backbone (not supported: no backbone weights available)
+    └── yolov1net_resnet18.py
+    └── yolov1net_resnet50.py
+    └── yolov1net_vgg18bn.py
+├── results                    		# Result textfiles
+    └── ....
+├── train                      		# Training files
+    └── __init__.py  
+    └── train_darknet.py
+    └── train_yolov1.py 
+├── utils                      		# Tools and utilities
+    └── __init__.py
+    └── custon_transform.py
+    └── darknet_utils.py		
+    └── dataset.py
+    └── figs.py.py
+    └── generate_csv.py
+    └── get_data.sh
+    └── get_data_macos.sh		
+    └── get_inference_speed.py
+    └── iou_map_tester.py
+    └── voc_label.py
+    └── yolov1_utils.py
+├── video                      		# Video file to run real time inference on and store it
+    └── youtube_video.mp4		# Video file from youtube as an .mp4 
+    └── yolov1_watches_youtube.mp4      # Result of yolo watching the youtube_video.mp4 file
+├── requierments.txt           		# Python libraries
+├── setup.py                   		# Makes repo into a Python package
+├── terminal.ipynb             		# If you want to run this from google collab
+├── LICENSE
+└── README.md
+```
+
 **Getting started:**
 <br>
 In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary and run the following lines:
@@ -60,18 +109,20 @@ A model comparison between test mAP and inference speeed can be seen in Fig.5 an
 
 **Real time object detection**
 <br>
-In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the `cpts` folder. If you want to do real time inference on a video, move the video file into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the video in `application/yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `application/yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton.
+In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the checkpoints `cpts` folder.  If you want to do real time inference on a video, move the video file into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the video in `application/yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `application/yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton.
 
 **Pretrained weights**
 <br>
 
  Backbone      |    Train mAP   |    Test mAP   |      FPS      |     Link     |
 | :---         |     :---:      |     :---:     |     :---:     |         ---: |
-|    Vgg19bn   |     66.12%     |     44.01%    |      233      |   [Link]()   |
-|    Resnet18  |     68.39%     |     44.29%    |      212      |   [Link]()   |
-|    Resnet50  |     69.51%     |     49.94%    |       96      |   [Link]()   |
-|    Darknet   |       -        |       -       |       -       |      -       |
+|    Vgg19bn   |     66.12%     |     44.01%    |      233      |   [Link](https://drive.google.com/file/d/1-5vqoN2QxRqvFQ_KBZxD2q3hi5dBwcmq/view?usp=sharing)   |
+|    Resnet18  |     68.39%     |     44.29%    |      212      |   [Link](https://drive.google.com/file/d/1VsDFNMDYBWSy9qFGooMVNo5SFVyYToT0/view?usp=sharing)   |
+|    Resnet50  |     69.51%     |     49.94%    |       96      |   [Link](https://drive.google.com/file/d/1-31xnUeXpkb2AHLr9GDw0wlgn9MmUM13/view?usp=sharing)   |
+|    Darknet   |       -        |       -       |       -       |      	-      |
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
+Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1GDj3jLBWbruhSQ7Gx01cLdkJFYW7kDwj?usp=sharing).
+
 
 **Python files:**
 <br>
