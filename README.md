@@ -16,6 +16,7 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
     └── __init__.py 
     └── yolov1_watches_you.py  		# YoloV1 inference on webcam
     └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in folder `video`
+├── cpts				# Weights as checkpoints or .cpt files
 ├── figures                    		# Figures and graphs
     └── ....
 ├── loss                       		# Custom PyTorch loss
