@@ -8,6 +8,66 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
   <figcaption>Fig.1 - Real-time inference using YoloV1. </figcaption>
 </p>
 
+
+**Example Dictionary Structre**
+
+<details>
+<summary style="font-size:14px">View dictionary structure</summary>
+<p>
+
+```
+.
+├── application                		# Real time inference tools
+    └── __init__.py 
+    └── yolov1_watches_you.py  		# YoloV1 inference on webcam
+    └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in `video/`
+├── cpts				# Weights as checkpoint .cpt files
+    └── vgg19bn_adj_lr_yolov1.cpt	# Pretrained YoloV1 utilizing Vgg19 backbone
+    └── resnet18_adj_lr_yolov1.cpt  	# Pretrained YoloV1 utilizing Resnet18 backbone	
+    └── resnet50_adj_lr_yolov1.cpt	# Pretrained YoloV1 utilizing Resnet50 backbone	
+├── figures                    		# Figures and graphs
+    └── ....
+├── loss                       		# Custom PyTorch loss
+    └── __init__.py  		
+    └── yolov1_loss.py
+├── models                     		# Pytorch models
+    └── __init__.py  		
+    └── darknet.py
+    └── yolov1net_darknet.py		# Original YoloV1 backbone (not supported: no backbone weights available)
+    └── yolov1net_resnet18.py		# Resnet18 pre-trained backbone
+    └── yolov1net_resnet50.py		# Resnet50 pre-trained backbone
+    └── yolov1net_vgg19bn.py		# Vgg19 with batchnormalization pre-trained backbone
+├── results                    		# Result textfiles
+    └── ....
+├── train                      		# Training files
+    └── __init__.py  
+    └── train_darknet.py
+    └── train_yolov1.py 
+├── utils                      		# Tools and utilities
+    └── __init__.py
+    └── custom_transform.py		# Image transformation/augmentation
+    └── darknet_utils.py		
+    └── dataset.py
+    └── figs.py.			# Create figures
+    └── generate_csv.py			# Create training and testing csv files
+    └── get_data.sh			# Fetch data and assign into appropriate folder structure
+    └── get_data_macos.sh		
+    └── get_inference_speed.py		# Get inference speed
+    └── iou_map_tester.py		# mAP tester
+    └── voc_label.py			
+    └── yolov1_utils.py			
+├── video                      		
+    └── youtube_video.mp4		# .mp4 video from youtube
+    └── yolov1_watches_youtube.mp4      # Result of `yolov1_watches_youtube.py`
+├── requierments.txt           		# Python libraries
+├── setup.py                   		
+├── terminal.ipynb             		# If you want to run experiments on google collab
+├── LICENSE
+└── README.md
+```
+
+</p></details>
+
 **Getting started:**
 <br>
 In order to get started first `cd` into the `./yolov1-real-time-obj-detection` dictionary and run the following lines:
@@ -73,59 +133,6 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 |    Darknet   |       -        |       -       |       -       |      	-      |
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1GDj3jLBWbruhSQ7Gx01cLdkJFYW7kDwj?usp=sharing).
-
-**Example Dictionary Structre**
-```
-.
-├── application                		# Real time inference tools
-    └── __init__.py 
-    └── yolov1_watches_you.py  		# YoloV1 inference on webcam
-    └── yolov1_watches_youtube.py	# YoloV1 inference on an .mp4 video file in `video/`
-├── cpts				# Weights as checkpoint .cpt files
-    └── vgg19bn_adj_lr_yolov1.cpt	# Pretrained YoloV1 utilizing Vgg19 backbone
-    └── resnet18_adj_lr_yolov1.cpt  	# Pretrained YoloV1 utilizing Resnet18 backbone	
-    └── resnet50_adj_lr_yolov1.cpt	# Pretrained YoloV1 utilizing Resnet50 backbone	
-├── figures                    		# Figures and graphs
-    └── ....
-├── loss                       		# Custom PyTorch loss
-    └── __init__.py  		
-    └── yolov1_loss.py
-├── models                     		# Pytorch models
-    └── __init__.py  		
-    └── darknet.py
-    └── yolov1net_darknet.py		# Original YoloV1 backbone (not supported: no backbone weights available)
-    └── yolov1net_resnet18.py		# Resnet18 pre-trained backbone
-    └── yolov1net_resnet50.py		# Resnet50 pre-trained backbone
-    └── yolov1net_vgg19bn.py		# Vgg19 with batchnormalization pre-trained backbone
-├── results                    		# Result textfiles
-    └── ....
-├── train                      		# Training files
-    └── __init__.py  
-    └── train_darknet.py
-    └── train_yolov1.py 
-├── utils                      		# Tools and utilities
-    └── __init__.py
-    └── custom_transform.py		# Image transformation/augmentation
-    └── darknet_utils.py		
-    └── dataset.py
-    └── figs.py.			# Create figures
-    └── generate_csv.py			# Create training and testing csv files
-    └── get_data.sh			# Fetch data and assign into appropriate folder structure
-    └── get_data_macos.sh		
-    └── get_inference_speed.py		# Get inference speed
-    └── iou_map_tester.py		# mAP tester
-    └── voc_label.py			
-    └── yolov1_utils.py			
-├── video                      		
-    └── youtube_video.mp4		# .mp4 video from youtube
-    └── yolov1_watches_youtube.mp4      # Result of `yolov1_watches_youtube.py`
-├── requierments.txt           		# Python libraries
-├── setup.py                   		
-├── terminal.ipynb             		# If you want to run experiments on google collab
-├── LICENSE
-└── README.md
-```
-
 
 **Python files:**
 <br>
