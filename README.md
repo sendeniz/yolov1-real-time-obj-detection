@@ -9,7 +9,7 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
 </p>
 
 
-**Example Dictionary Structre**
+**Example Dictionary Structure**
 
 <details>
 <summary style="font-size:14px">View dictionary structure</summary>
