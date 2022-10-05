@@ -124,8 +124,8 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 **Real time object detection (CPU)**
 <br>
-Note that if you should not have CUDA support on a dedicated GPU, calling `yolov1_watches_youtube.py` or `yolov1_watches_you.py`, will raise the following error as PyTorch will try to store the pre-trained model weights on your GPU: `Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. Therefore, if you are running on a CPU-only machine, please use torch.load with map_location='cpu' to map the pre-trained model to the CPU.` To do so please add the `map_location=torch.device('cpu')` to the `torch.load()` function in `yolov1_watches_youtube.py` or `yolov1_watches_you.py` as followed: `torch.load(path_cpt_file, map_location=torch.device('cpu'))`.
-Please keep in mind that on a CPU device, you may only be able to process less than 1 frame per second. That is inference speed is exteremely slow on CPU.
+To run on CPU only machines, change torch.load(path_cpt_file) to torch.load(path_cpt_file, map_location=torch.device('cpu'))
+in the `application/yolov1_watches_you.py` and `application/yolov1_watches_youtube.py` python files. Inference speed is exteremely slow (1 frame every 3 seconds, so around 0.3 fps rounded to zero at the fps counter).
 
 **Pretrained weights**
 <br>
