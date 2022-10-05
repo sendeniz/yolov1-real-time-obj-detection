@@ -118,9 +118,14 @@ A model comparison between test mAP and inference speeed can be seen in Fig.5 an
 </p>
 
 
-**Real time object detection**
+**Real time object detection (GPU)**
 <br>
-In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the checkpoints `cpts` folder.  If you want to do real time inference on a video, move the video file into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the video in `application/yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `application/yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton.
+In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the checkpoints `cpts` folder.  If you want to do real time inference on a video, move the video file (preferably .mp4) into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the video in `application/yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `application/yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton. 
+
+**Real time object detection (CPU)**
+<br>
+Note that if you should not have CUDA support on a dedicated GPU, calling `yolov1_watches_youtube.py` or `yolov1_watches_you.py`, will raise the following error as PyTorch will try to store the pre-trained model weights on your GPU: `Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. Therefore, if you are running on a CPU-only machine, please use torch.load with map_location='cpu' to map the pre-trained model to the CPU.` To do so please add the `map_location=torch.device('cpu')` to the `torch.load()` function in `yolov1_watches_youtube.py` or `yolov1_watches_you.py` as followed: `torch.load(path_cpt_file, map_location=torch.device('cpu'))`.
+Please keep in mind that on a CPU device, you may only be able to process less than 1 frame per second. That is inference speed is exteremely slow on CPU.
 
 **Pretrained weights**
 <br>
