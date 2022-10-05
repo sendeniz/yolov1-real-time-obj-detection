@@ -123,6 +123,7 @@ A model comparison between test mAP and inference speeed can be seen in Fig.5 an
 In order to run YoloV1 in real-time on a video or webcam in real-time, please if not trained from scratch download one of the pretrained weights from the Table 1. Make sure that at least one of the pretrained checkpoint `.cpt` files is within the checkpoints `cpts` folder.  If you want to do real time inference on a video, move the video file (preferably .mp4) into the `./video` folder. Then specify both 1) which pre-trained model to use and 2) path to the video in `application/yolov1_watches_youtube.py` by setting the appropriate tag to `True`. This will open up a window and perform object detection in real time. If you wish to perform object detection on a webcam call the `application/yolov1_watches_you.py`, which will open up a window of your camera stream and perform object detecton. 
 
 **Real time object detection (CPU)**
+<br>
 To run real-time object detection from your webcam feed on CPU only machines, in `application/yolov1_watches_you.py` change:
 <br>
 `checkpoint = torch.load(path_cpt_file)` to `checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))`.
