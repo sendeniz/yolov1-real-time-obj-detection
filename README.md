@@ -124,7 +124,7 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 **Real time object detection (CPU)**
 <br>
-To run on CPU only machines, change torch.load(path_cpt_file) to torch.load(path_cpt_file, map_location=torch.device('cpu'))
+To run on CPU only machines, change `torch.load(path_cpt_file)` to `torch.load(path_cpt_file, map_location=torch.device('cpu'))`
 in the `application/yolov1_watches_you.py` and `application/yolov1_watches_youtube.py` python files. Inference speed is exteremely slow (1 frame every 3 seconds, so around 0.3 fps rounded to zero at the fps counter).
 
 **Pretrained weights**
