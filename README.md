@@ -126,7 +126,7 @@ In order to run YoloV1 in real-time on a video or webcam in real-time, please if
 
 To run real-time object detection from your webcam feed on CPU only machines, in `application/yolov1_watches_you.py` change:
 <br>
-`torch.load(path_cpt_file)` to `torch.load(path_cpt_file, map_location=torch.device('cpu'))`
+`torch.load(path_cpt_file)` to `torch.load(path_cpt_file, map_location=torch.device('cpu'))`.
 
 **Pretrained weights**
 <br>
