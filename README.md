@@ -105,6 +105,10 @@ A model comparison between test mAP and inference speeed can be seen in Fig.5 an
 	<figcaption>Fig.4 - Resnet50 Yolov1: Training, test loss and mAP as a function of epochs.</figcaption>
 </p>
 
+<p align="center">
+  <img width="700" height="300" src=/figures/tiny_resnet18_loss_map.png?raw=true "Training Environment">
+	<figcaption>Fig.4 - Tiny Yolov118 Resnet: Training, test loss and mAP as a function of epochs.</figcaption>
+</p>
 
 <p align="center">
   <img width="700" height="300" src=/figures/model_comparison_map.png?raw=true "Training Environment">
@@ -136,6 +140,7 @@ To run real-time object detection from your webcam feed on CPU only machines, in
 |    Vgg19bn   |     66.12%     |     44.01%    |      233      |   [Link](https://drive.google.com/file/d/1-5vqoN2QxRqvFQ_KBZxD2q3hi5dBwcmq/view?usp=sharing)   |
 |    Resnet18  |     68.39%     |     44.29%    |      212      |   [Link](https://drive.google.com/file/d/1VsDFNMDYBWSy9qFGooMVNo5SFVyYToT0/view?usp=sharing)   |
 |    Resnet50  |     69.51%     |     49.94%    |       96      |   [Link](https://drive.google.com/file/d/1-31xnUeXpkb2AHLr9GDw0wlgn9MmUM13/view?usp=sharing)   |
+|    Tiny Yolov1 Resnet18  |     32.22%     |     19.62%    |       > 900      |   [Link](https://drive.google.com/file/d/1T709LJujimFkAnMePvtI_LzWCi29eTuD/view?usp=sharing)   |
 |    Darknet   |       -        |       -       |       -       |      	-      |
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1GDj3jLBWbruhSQ7Gx01cLdkJFYW7kDwj?usp=sharing).
