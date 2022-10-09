@@ -6,6 +6,8 @@ from models.yolov1net_darknet import YoloV1Net
 from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
 from models.yolov1net_resnet18 import YoloV1_Resnet18
 from models.yolov1net_resnet50 import YoloV1_Resnet50
+from models.tiny_yolov1net_resnet18 import Tiny_YoloV1_Resnet18
+
 import torchvision.transforms as T
 from PIL import Image
 import pandas as pd
@@ -21,11 +23,14 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 yolov1_darknet_pretrained = False
 yolov1_vgg19bn_pretrained = False
 yolov1_resnet18_pretrained = False
-yolov1_resnet50_pretrained = True
+yolov1_resnet50_pretrained = False
+tiny_yolov1_resnet18_pretrained = True
 
-model_names = ['vgg19bn_adj_lr_',
+model_names = ['vgg19bn_orig_lr_', 
+                'vgg19bn_adj_lr_',
                 'resnet18_adj_lr_',
-                'resnet50_adj_lr_']
+                'resnet50_adj_lr_',
+                'tiny_resnet18_adj_lr_']
 
 if yolov1_vgg19bn_pretrained == True:
     lr =  0.00001
@@ -39,7 +44,10 @@ elif yolov1_resnet50_pretrained == True:
     lr =  0.00001
     current_model = model_names[2]
     path_cpt_file = f'cpts/{current_model}yolov1.cpt'
-
+elif tiny_yolov1_resnet18_pretrained == True:
+    lr =  0.00001
+    current_model = model_names[4]
+    path_cpt_file = f'cpts/{current_model}yolov1.cpt'
 
 # # init model
 if yolov1_darknet_pretrained == True:
@@ -80,6 +88,15 @@ elif yolov1_resnet50_pretrained == True:
     model.eval()
     print("Petrained yolov1 resnet 50 network initalized.")
 
+elif tiny_yolov1_resnet18_pretrained == True:
+    model = Tiny_YoloV1_Resnet18(S = 7, B = 2, C = 20).to(device)
+    optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
+    checkpoint = torch.load(path_cpt_file)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    model.eval()
+    print("Petrained tiny yolov1 resnet 18 network initalized.")
+
 else:
     print("No pretrained yolov1 model was specified. Please check the boolean flags and set the flag for supported pretrained models to True.")
 
@@ -114,5 +131,8 @@ elif yolov1_resnet18_pretrained == True:
     with open(f'results/{current_model}inference_speed.txt','w') as values:
         values.write(str(lst))
 elif yolov1_resnet50_pretrained == True:
+    with open(f'results/{current_model}inference_speed.txt','w') as values:
+        values.write(str(lst))
+elif tiny_yolov1_resnet18_pretrained == True:
     with open(f'results/{current_model}inference_speed.txt','w') as values:
         values.write(str(lst))

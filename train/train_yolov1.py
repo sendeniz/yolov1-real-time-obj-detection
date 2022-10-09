@@ -19,6 +19,8 @@ from models.yolov1net_darknet import YoloV1Net
 from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
 from models.yolov1net_resnet18 import YoloV1_Resnet18
 from models.yolov1net_resnet50 import YoloV1_Resnet50
+from models.tiny_yolov1net_resnet18 import Tiny_YoloV1_Resnet18
+
 import cv2 as cv
 import numpy as np 
 from numpy import genfromtxt
@@ -39,8 +41,9 @@ lr_sched_original = False
 lr_sched_adjusted = True
 use_vgg19bn_backbone = False
 use_original_darknet_backbone = False
-use_resnet18_backbone = True
+use_resnet18_backbone = False
 use_resnet50_backbone = False
+use_tiny_resnet18_backbone = True
 
 check_image_transform = False
 save_model = True
@@ -48,7 +51,8 @@ save_model = True
 model_names = ['vgg19bn_orig_lr_', 
                 'vgg19bn_adj_lr_',
                 'resnet18_adj_lr_',
-                'resnet50_adj_lr_']
+                'resnet50_adj_lr_',
+                'tiny_resnet18_adj_lr_']
 
 if lr_sched_original == True and use_vgg19bn_backbone == True:
     lr = 0.001
@@ -66,6 +70,11 @@ elif lr_sched_adjusted == True and use_resnet50_backbone == True:
     lr =  0.00001
     current_model = model_names[3]
     path_cpt_file = f'cpts/{current_model}yolov1.cpt'
+elif lr_sched_adjusted == True and use_tiny_resnet18_backbone == True:
+    lr =  0.00001
+    current_model = model_names[4]
+    path_cpt_file = f'cpts/{current_model}yolov1.cpt'
+
 
 class Compose(object):
     def __init__(self, transforms):
@@ -154,6 +163,10 @@ def main():
     elif use_resnet50_backbone == True:
         model = YoloV1_Resnet50(S = 7, B = 2, C = 20).to(device)
         print("Petrained resnet 50 network initalized as a backbone.")
+    
+    elif use_tiny_resnet18_backbone == True:
+        model = Tiny_YoloV1_Resnet18(S = 7, B = 2, C = 20).to(device)
+        print("Petrained tiny resnet 18 yolo network initalized as a backbone.")
 
     else:
         print("No backbone was specified. Please check the boolean flags in train_yolov1.py and set the flag for supported backbones to True.")
