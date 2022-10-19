@@ -5,6 +5,7 @@ Created on Sun Aug 21 23:14:10 2022
 
 @author: sen
 """
+from pickle import FALSE
 import cv2 as cv
 import numpy as np
 import time 
@@ -17,9 +18,14 @@ from models.yolov1net_darknet import YoloV1Net
 from models.yolov1net_vgg19bn import YoloV1_Vgg19bn
 from models.yolov1net_resnet18 import YoloV1_Resnet18
 from models.yolov1net_resnet50 import YoloV1_Resnet50
-from models.tiny_yolov1net_resnet18 import Tiny_YoloV1_Resnet18
+from models.tiny_yolov1net import Tiny_YoloV1
+from models.tiny_yolov1net_mobilenetv3_large import Tiny_YoloV1_MobileNetV3_Large
+from models.tiny_yolov1net_mobilenetv3_small import Tiny_YoloV1_MobileNetV3_Small
+from models.tiny_yolov1net_squeezenet import Tiny_YoloV1_SqueezeNet
 from utils.custom_transform import draw_bounding_box
 
+
+torch.set_num_threads(4)
 transform = T.Compose([T.ToTensor()])
 weight_decay = 0.0005
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -28,15 +34,19 @@ yolov1_darknet_pretrained = False
 yolov1_vgg19bn_pretrained = False
 yolov1_resnet18_pretrained = False
 yolov1_resnet50_pretrained = False
-tiny_yolov1_resnet18_pretrained = True
- 
+tiny_yolov1_pretrained = False
+tiny_yolov1_mobilenetv3_large_pretrained = False
+tiny_yolov1_mobilenetv3_small_pretrained = True
+tiny_yolov1_squeezenet_pretrained= False
 run_on_cpu = True
 
-model_names = ['vgg19bn_orig_lr_', 
-                'vgg19bn_adj_lr_',
+model_names = ['vgg19bn_adj_lr_',
                 'resnet18_adj_lr_',
                 'resnet50_adj_lr_',
-                'tiny_resnet18_adj_lr_']
+                'tiny_adj_lr_',
+                'mobilenetv3_large_tiny_adj_lr_',
+                'mobilenetv3_small_tiny_adj_lr_',
+                'squeezenet_tiny_adj_lr_']
 
 if yolov1_vgg19bn_pretrained == True:
     lr =  0.00001
@@ -50,10 +60,22 @@ elif yolov1_resnet50_pretrained == True:
     lr =  0.00001
     current_model = model_names[2]
     path_cpt_file = f'cpts/{current_model}yolov1.cpt'
-elif tiny_yolov1_resnet18_pretrained == True:
+elif tiny_yolov1_pretrained == True:
+    lr =  0.00001
+    current_model = model_names[3]
+    path_cpt_file = f'cpts/{current_model}yolov1.cpt'
+elif tiny_yolov1_mobilenetv3_large_pretrained == True:
     lr =  0.00001
     current_model = model_names[4]
     path_cpt_file = f'cpts/{current_model}yolov1.cpt'
+elif tiny_yolov1_mobilenetv3_small_pretrained == True:
+    lr =  0.00001
+    current_model = model_names[5]
+    path_cpt_file = f'cpts/{current_model}yolov1.cpt'
+elif tiny_yolov1_squeezenet_pretrained == True:
+    lr =  0.00001
+    current_model = model_names[6]
+    path_cpt_file = f'cpts/{current_model}yolov1.cpt'  
 
 
 # init model
@@ -95,8 +117,8 @@ elif yolov1_resnet50_pretrained == True:
     model.eval()
     print("Petrained yolov1 resnet 50 network initalized.")
 
-elif tiny_yolov1_resnet18_pretrained == True:
-    model = Tiny_YoloV1_Resnet18(S = 7, B = 2, C = 20).to(device)
+elif tiny_yolov1_pretrained == True:
+    model = Tiny_YoloV1(S = 7, B = 2, C = 20).to(device)
     optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
     if run_on_cpu == True:
         checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
@@ -106,8 +128,46 @@ elif tiny_yolov1_resnet18_pretrained == True:
     model.load_state_dict(checkpoint['model_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     model.eval()
-    print("Petrained tiny yolov1 resnet 18 network initalized.")
+    print("Petrained tiny yolov1 network initalized.")
 
+elif tiny_yolov1_mobilenetv3_large_pretrained == True:
+    model = Tiny_YoloV1_MobileNetV3_Large(S = 7, B = 2, C = 20).to(device)
+    optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
+    if run_on_cpu == True:
+        checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
+    else:
+        checkpoint = torch.load(path_cpt_file)
+    
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    model.eval()
+    print("Petrained tiny yolov1 large mobilenetv3 s network initalized.")
+
+elif tiny_yolov1_mobilenetv3_small_pretrained == True:
+    model = Tiny_YoloV1_MobileNetV3_Small(S = 7, B = 2, C = 20).to(device)
+    optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
+    if run_on_cpu == True:
+        checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
+    else:
+        checkpoint = torch.load(path_cpt_file)
+    
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    model.eval()
+    print("Petrained tiny yolov1 small mobilenetv3 network initalized.")
+
+elif tiny_yolov1net_squeezenet == True:
+    model = Tiny_YoloV1_SqueezeNet(S = 7, B = 2, C = 20).to(device)
+    optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay = weight_decay)
+    if run_on_cpu == True:
+        checkpoint = torch.load(path_cpt_file, map_location=torch.device('cpu'))
+    else:
+        checkpoint = torch.load(path_cpt_file)
+    
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    model.eval()
+    print("Petrained tiny yolov1 squeezenet network initalized.")
 
 else:
     print("No pretrained yolov1 model was specified. Please check the boolean flags and set the flag for supported pretrained models to True.")
