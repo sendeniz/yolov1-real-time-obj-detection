@@ -13,21 +13,21 @@ class Tiny_YoloV1_MobileNetV3_Small(nn.Module):
             # Since the last MobileNetV3 small layer consists of a (1x1, 567) conv layer
             # we adjust the input size of the yolo head from 1024 to 567 
 
-            nn.Conv2d(in_channels = 576, out_channels = 512, 
+            nn.Conv2d(in_channels = 576, out_channels = 192, 
                       kernel_size = (3, 3), stride = 1,
                       padding = 1),
-            nn.BatchNorm2d(512),
+            nn.BatchNorm2d(192),
             nn.LeakyReLU(0.1),
 
-            nn.Conv2d(in_channels = 512, out_channels = 128, 
+            nn.Conv2d(in_channels = 192, out_channels = 96, 
                       kernel_size = (3, 3), stride = 1,
                       padding = 1),
-            nn.BatchNorm2d(128),
+            nn.BatchNorm2d(96),
             nn.LeakyReLU(0.1),
 
             # prediction block
             nn.Flatten(),
-            nn.Linear(in_features = 512 * S * S, out_features = 1470),
+            nn.Linear(in_features = 384 * S * S, out_features = 1470),
             nn.Dropout(0.5),
             nn.LeakyReLU(0.1),
             nn.Linear(in_features = 1470, out_features = S * S * (C + B * 5)),
