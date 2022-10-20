@@ -2,12 +2,12 @@ import torch
 import torch.nn as nn
 import torchvision.models as models
 
-class Tiny_YoloV1_MobileNet_Small(nn.Module):
+class Tiny_YoloV1_MobileNetV3_Small(nn.Module):
     def __init__(self, S = 7, B = 2, C = 20):
-        super(Tiny_YoloV1_MobileNet_Small, self).__init__()
+        super(Tiny_YoloV1_MobileNetV3_Small, self).__init__()
 
         self.mobilenetv3_small_backbone =  nn.Sequential(*list(models.mobilenet_v3_small(weights='MobileNet_V3_Small_Weights.IMAGENET1K_V1').children())[:-2])
-        #self.squeeze_net = nn.Sequential(*list(models.squeezenet1_1(weights='IMAGENET1K_V1').children())[:-1])
+        
         self.yolov1head = nn.Sequential (
             # Block 5 (last two conv layers)
             # Since the last MobileNetV3 small layer consists of a (1x1, 567) conv layer
@@ -40,7 +40,7 @@ class Tiny_YoloV1_MobileNet_Small(nn.Module):
         return x
     
 def test ():
-    model = Tiny_YoloV1_MobileNet_Small()
+    model = Tiny_YoloV1_MobileNetV3_Small()
     x = torch.rand(2, 3, 448, 448)
     xshape = model(x).shape
     return x, xshape
