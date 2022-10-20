@@ -12,7 +12,7 @@ tar xf VOCtest_06-Nov-2007.tar
 rm VOCtest_06-Nov-2007.tar
 
 #wget https://pjreddie.com/media/files/voc_label.py
-#python3 utils/voc_label.py
+python3 utils/voc_label.py
 
 cat 2007_train.txt 2007_val.txt 2012_*.txt > train.txt
 cp 2007_test.txt test.txt
