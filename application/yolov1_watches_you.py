@@ -5,7 +5,6 @@ Created on Sun Aug 21 23:14:10 2022
 
 @author: sen
 """
-from pickle import FALSE
 import cv2 as cv
 import numpy as np
 import time 
@@ -25,7 +24,6 @@ from models.tiny_yolov1net_squeezenet import Tiny_YoloV1_SqueezeNet
 from utils.custom_transform import draw_bounding_box
 
 
-torch.set_num_threads(4)
 transform = T.Compose([T.ToTensor()])
 weight_decay = 0.0005
 device = "cuda" if torch.cuda.is_available() else "cpu"
