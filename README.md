@@ -170,4 +170,4 @@ Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1
 
 **Acknowledgement:**
 <br>
-I would like to thank Michael Lew, Jonas Eilers, Jakob Walter and Daniel Klassen for their support, time and thoughts.
+I would like to thank Michael Lew, Bryan A. Gass, Jonas Eilers, Jakob Walter and Daniel Klassen for their support, time and thoughts.
