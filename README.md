@@ -140,6 +140,8 @@ To run real-time object detection from your webcam feed on CPU only machines, in
 |    Vgg19bn   			|     66.12%     |     44.01%    |      233      |	- 	|	[Link](https://drive.google.com/file/d/1-5vqoN2QxRqvFQ_KBZxD2q3hi5dBwcmq/view?usp=sharing)   |
 |    Resnet18  			|     68.39%     |      44.29%   |      212      |	-	|	[Link](https://drive.google.com/file/d/1VsDFNMDYBWSy9qFGooMVNo5SFVyYToT0/view?usp=sharing)   |
 |    Resnet50  			|     69.51%     |      49.94%   |       96      |   	-  	|	[Link](https://drive.google.com/file/d/1-31xnUeXpkb2AHLr9GDw0wlgn9MmUM13/view?usp=sharing)   |
+|    Tiny Yolov1		|     -     |     -    |               |   	-  	|	[Link](-)   |
+
 |    Tiny Yolov1 Mobilenetv3 S  |     37.81%     |     30.43%    |               |   	-  	|	[Link](https://drive.google.com/file/d/1-i-V_hXNPH75I-PpErn3bZRLdtDNVlFO/view?usp=sharing)   |
 |    Tiny Yolov1 Mobilenetv3 L  |     50.72%     |     38.64%  	 |	- 	 |	-  	|   	[Link](https://drive.google.com/file/d/1-lYeKLf3pE2wmUb_TaNIRnrzdn8TubBZ/view?usp=sharing)   |
 |    Tiny Squeezenet 1_1  	|     27.27%     |     	18.06%   |	-        | 	 - 	|[Link](https://drive.google.com/file/d/1-ZO32j6K7L41qpnwXTeRS0LvJY_bV9lL/view?usp=sharing)   |
