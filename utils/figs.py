@@ -426,7 +426,7 @@ plt.figure(figsize=(13,5))
 plt.subplot(1,2,1)
 plt.plot(train_tiny_loss, linewidth=1.5)
 plt.plot(test_tiny_loss, linewidth=1.5)
-plt.title('Tiny ResNet18: Loss per epoch', fontsize = 16)
+plt.title('Tiny YoloV1: Loss per epoch', fontsize = 16)
 plt.xlabel('Number of epochs', fontsize = 16)
 plt.ylabel('Loss value', fontsize = 16)
 plt.legend(['Train loss', 'Test loss'],
@@ -442,7 +442,7 @@ plt.xlabel('Number of epochs', fontsize = 16)
 plt.ylabel('mAP value ', fontsize = 16)
 plt.legend(['Train mAP', 'Test mAP'], prop={'size': 14},           
             frameon=False)
-plt.savefig('figures/tiny_resnet18_loss_map.png')
+plt.savefig('figures/tiny_yolo_loss_map.png')
 
 # Plot mobilev3 M mean loss
 plt.figure(figsize=(13,5)) 
