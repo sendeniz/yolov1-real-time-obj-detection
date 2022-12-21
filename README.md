@@ -135,21 +135,25 @@ To run real-time object detection from your webcam feed on CPU only machines, in
 **Pretrained weights**
 <br>
 
- Backbone      |    Train mAP   |    Test mAP   |      FPS      |     Link     |
-| :---         |     :---:      |     :---:     |     :---:     |         ---: |
-|    Vgg19bn   |     66.12%     |     44.01%    |      233      |   [Link](https://drive.google.com/file/d/1-5vqoN2QxRqvFQ_KBZxD2q3hi5dBwcmq/view?usp=sharing)   |
-|    Resnet18  |     68.39%     |     44.29%    |      212      |   [Link](https://drive.google.com/file/d/1VsDFNMDYBWSy9qFGooMVNo5SFVyYToT0/view?usp=sharing)   |
-|    Resnet50  |     69.51%     |     49.94%    |       96      |   [Link](https://drive.google.com/file/d/1-31xnUeXpkb2AHLr9GDw0wlgn9MmUM13/view?usp=sharing)   |
-|    Tiny Yolov1 Resnet18  |     32.22%     |     19.62%    |       > 900      |   [Link](https://drive.google.com/file/d/1T709LJujimFkAnMePvtI_LzWCi29eTuD/view?usp=sharing)   |
-|    Darknet   |       -        |       -       |       -       |      	-      |
+ Backbone      			|    Train mAP   |    Test mAP   |      FPS      |	Params	|	Link	|
+| :---         			|     :---:      |     :---:     |     :---:     |	:---:	|	---: 	|
+|    Vgg19bn   			|     66.12%     |     44.01%    |      233      |	- 	|	[Link](https://drive.google.com/file/d/1-5vqoN2QxRqvFQ_KBZxD2q3hi5dBwcmq/view?usp=sharing)   |
+|    Resnet18  			|     68.39%     |      44.29%   |      212      |	-	|	[Link](https://drive.google.com/file/d/1VsDFNMDYBWSy9qFGooMVNo5SFVyYToT0/view?usp=sharing)   |
+|    Resnet50  			|     69.51%     |      49.94%   |       96      |   	-  	|	[Link](https://drive.google.com/file/d/1-31xnUeXpkb2AHLr9GDw0wlgn9MmUM13/view?usp=sharing)   |
+|    Tiny Yolov1		|     -     |     -    |               |   	-  	|	[Link](-)   |
+
+|    Tiny Yolov1 Mobilenetv3 S  |     37.81%     |     30.43%    |               |   	-  	|	[Link](https://drive.google.com/file/d/1-i-V_hXNPH75I-PpErn3bZRLdtDNVlFO/view?usp=sharing)   |
+|    Tiny Yolov1 Mobilenetv3 L  |     50.72%     |     38.64%  	 |	- 	 |	-  	|   	[Link](https://drive.google.com/file/d/1-lYeKLf3pE2wmUb_TaNIRnrzdn8TubBZ/view?usp=sharing)   |
+|    Tiny Squeezenet 1_1  	|     27.27%     |     	18.06%   |	-        | 	 - 	|[Link](https://drive.google.com/file/d/1-ZO32j6K7L41qpnwXTeRS0LvJY_bV9lL/view?usp=sharing)   |
+|    Darknet   			|       -       |       -        |       -       |   -   |	-       |
 <!---|    Darknet (YoloV1 Paper)     |       63.40%  |      57.90%       |       -       |--->
 Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1GDj3jLBWbruhSQ7Gx01cLdkJFYW7kDwj?usp=sharing).
 
 **Python files:**
 <br>
 
-`yolov1net_backbonename.py` : There are 3 pretrained backbones supported: Vgg19 with batch norm `yolov1net_vgg19bn.py`, Resnet18 `yolov1net_resnet18.py`
- and Resnet50 `yolov1net_resnet50.py`. While the original darknet backbone is included `yolov1net_darknet.py`, there are no pretrained PyTorch weights available for this backbone. Methods that convert the original darknet weights from [Joseph Redmon's website](https://pjreddie.com/darknet/imagenet/) do not support conversion of this particular backbone. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose and should only requiere small adjustments. 
+`yolov1net_backbonename.py` : There are 6 pretrained backbones supported: for GPU inference there is Vgg19 with batch norm `yolov1net_vgg19bn.py`, Resnet18 `yolov1net_resnet18.py`, Resnet50 `yolov1net_resnet50.py` and for CPU inference there is `Mobilenetv3 Small (S)` and `Mobilenetv3 Large (L)`. For pocket models (i.e., detection that should run on a small device) we therefore encourage the use of our pretrained CPU models as they allow for real time inference on small devices.
+ a. While the original darknet backbone is included `yolov1net_darknet.py`, there are no pretrained PyTorch weights available for this backbone. Methods that convert the original darknet weights from [Joseph Redmon's website](https://pjreddie.com/darknet/imagenet/) do not support conversion of this particular backbone. If anyone has such weights or the GPU load available to train these from scratch on ImageNet, please feel free to contact me. The darknet training files for ImageNet data have been included in this repo for this purpose and should only requiere small adjustments. 
  
 `train_yolov1.py` : performs training and testing procedure, giving progress updates after each epoch for both training and test loss in addition to the mean average precision metric. 
 
@@ -170,4 +174,4 @@ Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1
 
 **Acknowledgement:**
 <br>
-I would like to thank Michael Lew, Jonas Eilers, Jakob Walter and Daniel Klassen for their support, time and thoughts.
+I would like to thank Michael Lew, Bryan A. Gass, Jonas Eilers, Jakob Walter and Daniel Klassen for their support, time and thoughts.
