@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torchvision.models as models
+test = False
 
 class Tiny_YoloV1_MobileNetV3_Large(nn.Module):
     def __init__(self, S = 7, B = 2, C = 20):
@@ -13,23 +14,22 @@ class Tiny_YoloV1_MobileNetV3_Large(nn.Module):
             # Since the last MobileNetV3 layer consists of a (1x1, 960) conv layer
             # we adjust the input size of the yolo head from 1024 to 960.
 
-            nn.Conv2d(in_channels = 960, out_channels = 512, 
+            nn.Conv2d(in_channels = 960, out_channels = 320, 
                       kernel_size = (3, 3), stride = 1,
                       padding = 1),
-            nn.BatchNorm2d(512),
+            nn.BatchNorm2d(320),
             nn.LeakyReLU(0.1),
 
-            nn.Conv2d(in_channels = 512, out_channels = 128, 
+            nn.Conv2d(in_channels = 320, out_channels = 80, 
                       kernel_size = (3, 3), stride = 1,
                       padding = 1),
-            nn.BatchNorm2d(128),
+            nn.BatchNorm2d(80),
             nn.LeakyReLU(0.1),
 
             # prediction block
             nn.Flatten(),
-            # shape before flatten is [2, 256, 14, 14] ->  256 * 14 * 14 = 50176
-            # we adjust the linear layer input to be 1024 * 7 * 7 = 50176
-            nn.Linear(in_features = 512 * S * S, out_features = 1470),
+
+            nn.Linear(in_features = 320 * S * S, out_features = 1470),
             nn.Dropout(0.5),
             nn.LeakyReLU(0.1),
             nn.Linear(in_features = 1470, out_features = S * S * (C + B * 5)),

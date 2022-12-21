@@ -1,10 +1,7 @@
 import torch
 import torch.nn as nn
 import torchvision.models as models
-
-import torch
-import torch.nn as nn
-import torchvision.models as models
+test = False
 
 class Tiny_YoloV1_SqueezeNet(nn.Module):
     def __init__(self, S = 7, B = 2, C = 20):
@@ -16,23 +13,22 @@ class Tiny_YoloV1_SqueezeNet(nn.Module):
             # Since the last SqueezeNet layer consists of a (1x1, 512) conv layer
             # we adjust the input size of the yolo head from 1024 to 512.
 
-            nn.Conv2d(in_channels = 512, out_channels = 512, 
+            nn.Conv2d(in_channels = 512, out_channels = 128, 
                       kernel_size = (3, 3), stride = 1,
                       padding = 1),
-            nn.BatchNorm2d(512),
-            nn.LeakyReLU(0.1),
+            nn.BatchNorm2d(128),
+            nn.LeakyReLU(0.1), 
 
-            nn.Conv2d(in_channels = 512, out_channels = 128, 
+            nn.Conv2d(in_channels = 128, out_channels = 64, 
                       kernel_size = (3, 3), stride = 2,
                       padding = 1),
-            nn.BatchNorm2d(128),
+            nn.BatchNorm2d(64),
             nn.LeakyReLU(0.1),
 
             # prediction block
             nn.Flatten(),
-            # shape before flatten is [2, 256, 14, 14] ->  256 * 14 * 14 = 50176
-            # we adjust the linear layer input to be 1024 * 7 * 7 = 50176
-            nn.Linear(in_features = 512 * S * S, out_features = 1470),
+            
+            nn.Linear(in_features = 256 * S * S, out_features = 1470),
             nn.Dropout(0.5),
             nn.LeakyReLU(0.1),
             nn.Linear(in_features = 1470, out_features = S * S * (C + B * 5)),
@@ -57,4 +53,6 @@ def test ():
     xshape = model(x).shape
     return x, xshape
 
-testx, xdims = test()
+if test == True:
+    testx, xdims = test()
+

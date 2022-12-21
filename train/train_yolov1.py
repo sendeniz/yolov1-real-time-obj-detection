@@ -11,7 +11,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 
 from utils.yolov1_utils import mean_average_precision as mAP
-from utils.yolov1_utils import get_bboxes
+from utils.yolov1_utils import get_bboxes, strip_square_brackets
 from utils.dataset import VOCData
 from loss.yolov1_loss import YoloV1Loss
 from torch.optim import lr_scheduler
@@ -36,7 +36,7 @@ nworkers = 2
 pin_memory = True
 
 # to resume training from a previous checkpoint set to True
-continue_training = False
+continue_training = True
 
 img_dir = 'data/images/'
 label_dir = 'data/labels/'
@@ -47,8 +47,8 @@ use_original_darknet_backbone = False
 use_resnet18_backbone = False
 use_resnet50_backbone = False
 use_tiny_backbone = False
-use_mobilenetv3_large_backbone = False
-use_mobilenetv3_small_backbone = True
+use_mobilenetv3_large_backbone = True
+use_mobilenetv3_small_backbone = False
 use_squeezenet_backbone = False
 check_image_transform = False
 save_model = True
@@ -94,7 +94,6 @@ elif lr_sched_adjusted == True and use_squeezenet_backbone == True:
     lr =  0.00001
     current_model = model_names[7]
     path_cpt_file = f'cpts/{current_model}yolov1.cpt'
-
 
 class Compose(object):
     def __init__(self, transforms):
@@ -218,6 +217,12 @@ def main():
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         last_epoch = checkpoint['epoch']
         print(f"Checkpoint from epoch:{last_epoch + 1} successfully loaded.")
+        
+        strip_square_brackets(f"results/{current_model}train_loss.txt")
+        strip_square_brackets(f"results/{current_model}train_mAP.txt")
+        strip_square_brackets(f"results/{current_model}test_loss.txt")
+        strip_square_brackets(f"results/{current_model}test_mAP.txt")
+
         train_loss_lst = list(genfromtxt(f"results/{current_model}train_loss.txt", delimiter=','))
         train_mAP_lst = list(genfromtxt(f"results/{current_model}train_mAP.txt", delimiter=','))
         test_loss_lst = list(genfromtxt(f"results/{current_model}test_loss.txt", delimiter=','))
