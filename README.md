@@ -106,8 +106,8 @@ A model comparison between test mAP and inference speeed can be seen in Fig.5 an
 </p>
 
 <p align="center">
-  <img width="700" height="300" src=/figures/tiny_resnet18_loss_map.png?raw=true "Training Environment">
-	<figcaption>Fig.4 - Tiny Yolov118 Resnet: Training, test loss and mAP as a function of epochs.</figcaption>
+  <img width="700" height="300" src=/figures/tiny_yolo_loss_map.png?raw=true "Training Environment">
+	<figcaption>Fig.4 - Tiny YolovV1: Training, test loss and mAP as a function of epochs.</figcaption>
 </p>
 
 <p align="center">
