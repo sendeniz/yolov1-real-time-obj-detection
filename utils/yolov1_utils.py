@@ -409,3 +409,11 @@ def cellboxes_to_boxes(out, S=7):
         all_bboxes.append(bboxes)
 
     return all_bboxes
+
+def strip_square_brackets(pathtotxt):
+    with open(pathtotxt, 'r') as my_file:
+        text = my_file.read()
+        text = text.replace("[","")
+        text = text.replace("]","")
+    with open(pathtotxt, 'w') as my_file:
+        my_file.write(text)
