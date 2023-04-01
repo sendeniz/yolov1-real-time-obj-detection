@@ -41,8 +41,6 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
     └── yolov1net_resnet18.py		# Resnet18 pre-trained backbone
     └── yolov1net_resnet50.py		# Resnet50 pre-trained backbone
     └── yolov1net_vgg19bn.py		# Vgg19 with batchnormalization pre-trained backbone
-
-
 ├── results                    		# Result textfiles
     └── ....
 ├── train                      		# Training files
@@ -169,7 +167,7 @@ Download the entire `cpts`folder [here](https://drive.google.com/drive/folders/1
 
 `yolov1_loss.py` : defines the yolov1 loss as a custom PyTorch nn.module.
 
-`custom_transform.py` : defines the dataaugmentations applied to yolov1 as per the original paper by Joseph Redmon.
+`custom_transform.py` : defines the data augmentations applied to yolov1 as per the original paper by Joseph Redmon.
 
 `utils.py` : defines a series of utility functions, such as computation for the intersection over unions, mean average precision, converting bouding box coordinates relative to the cellboxes and from cellboxes the image.
 
