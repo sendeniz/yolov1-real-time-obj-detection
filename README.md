@@ -37,6 +37,10 @@ This repo contains a reimplementation of the original Yolo: [You Only Look Once:
     └── yolov1net_resnet18.py		# Resnet18 pre-trained backbone
     └── yolov1net_resnet50.py		# Resnet50 pre-trained backbone
     └── yolov1net_vgg19bn.py		# Vgg19 with batchnormalization pre-trained backbone
+    └── tiny_yolov1net.py		# Original tiny YoloV1 backbone 
+    └── tiny_yolov1net_mobilenetv3_large.py # Mobilenetv3 size M/large backbone 
+    └── tiny_yolov1net_squeezenet.py 	# Squeezenet backbone 
+
 ├── results                    		# Result textfiles
     └── ....
 ├── train                      		# Training files
